@@ -24,6 +24,26 @@
     </form>
     <script>
 
+        const list = $('<ul></ul>');
+        let counter = 0;
+        $('#history').append(list);
+
+        $('form').on('submit', function(event) {
+          const form = $(this);
+          event.preventDefault();
+
+          const inputs = form.find('input');
+          for (let input of inputs) {
+            input = $(input); // turn into JQuery Objects
+            const li = $(`<li class="m-2"><button id="C">${input.val()}</button></li>`);
+            list.append(li);
+            input.val('');
+          };
+          counter++;
+          const p = $(`<p>Option #${counter}</p>`);
+          $('#history').append(p);
+          $('#history').append(list);
+        });
     </script>
   </body>
 </html>
