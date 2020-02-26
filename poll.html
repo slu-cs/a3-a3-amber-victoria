@@ -11,8 +11,9 @@
         <h1>a3 Amber Victoria</h1>
       </header>
     </div>
+    <div id="history"></div>
 
-    <form class="row  p-3 ">
+    <form class="row  p-3">
        <div class="form-group col-md-7">
         <label for="text">Poll Question:</label>
         <input type="text" id="text" name="text" class="form-control">
@@ -35,7 +36,7 @@
           const inputs = form.find('input');
           for (let input of inputs) {
             input = $(input); // turn into JQuery Objects
-            const li = $(`<li class="m-2"><button id="C">${input.val()}</button></li>`);
+            const li = $(`<li class="m-2">${input.val()}</li>`);
             list.append(li);
             input.val('');
           };
