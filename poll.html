@@ -11,40 +11,53 @@
         <h1>a3 Amber Victoria</h1>
       </header>
     </div>
-    <div id="history"></div>
 
     <form class="row  p-3">
        <div class="form-group col-md-7">
         <label for="text">Poll Question:</label>
         <input type="text" id="text" name="text" class="form-control">
 
+
         <button type="submit" class="btn btn-primary m-3">Add Option</button>
         <input type="text" id="option" name="text" class="form-control">
       </div>
-
     </form>
+    <ul>
+      <li id="placeholder">Think of something to do!</li>
+    </ul>
     <script>
 
-        const list = $('<ul></ul>');
-        let counter = 0;
-        $('#history').append(list);
+          // Add to the to-do list
+      $('form').on('submit', function(event) {
+      event.preventDefault();
 
-        $('form').on('submit', function(event) {
-          const form = $(this);
-          event.preventDefault();
+      // Grab the text and empty the box
+      const input = $('#option');
+      const item = input.val();
+      input.val('');
 
-          const inputs = form.find('input');
-          for (let input of inputs) {
-            input = $(input); // turn into JQuery Objects
-            const li = $(`<li class="m-2">${input.val()}</li>`);
-            list.append(li);
-            input.val('');
-          };
-          counter++;
-          const p = $(`<p>Option #${counter}</p>`);
-          $('#history').append(p);
-          $('#history').append(list);
-        });
+      // Add a non-empty item to the list
+      if (item) {
+        $('#placeholder').remove();
+        $('ul').append($(`
+          <li>
+           <span>${item}</span>
+           <button>Delete</button>
+          </li>
+        `));
+        }
+      });
+
+      // Delete from the to-do list
+      $('ul').on('click', 'button', function(event) {
+      $(this).closest('li').remove();
+
+      // Put back the placeholder if it's empty
+      const items = $('li');
+      if (items.length == 0) {
+        $('ul').append($('<li id="placeholder">Think of something to do!</li>'));
+        }
+      });
     </script>
   </body>
 </html>
