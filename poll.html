@@ -14,35 +14,86 @@
 
     <form class="row  p-3">
        <div class="form-group col-md-7">
-        <label for="text">Poll Question:</label>
-        <input type="text" id="text" name="text" class="form-control">
-        <button type="submit" class="btn btn-primary m-3">Add Option</button>
-        <input type="text" id="option" name="text" class="form-control">
+        <label for="text" class="pt-4 pl-2 form-control-lg">Poll Question:</label>
+        <input type="text" id="question" name="text" class="form-control m-2">
+        <label for="text" class="pt-4 pl-2 form-control-lg">Type in some options below:</label>
+        <input type="text" id="option" name="text" class="form-control m-2">
+        <button class="btn btn-primary ml-2 mt-2" id=addoption>Add Option</button>
+      </div>
+      <div class="form-group col-md-2">
+        <!-- space divider to get the start vote button over to the right side of the screen-->
+      </div>
+      <div class="form-group col">
+        <button type="submit" class="btn btn-success p-5 mt-4" id="vote">Start Vote!</button>
       </div>
     </form>
-    <div id="history"></div>
+    <ul class="list-group p-3"></ul>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
 
-      const list = $('<ul></ul>');
-       $('#history').append(list);
+      // keeping list of all the options in an array
+      var opts = [];
 
-       $('form').on('submit', function(event) {
-         const form = $(this);
-         event.preventDefault();
+      // All from Lisa's To Do list example
+      $("#addoption").click(function() {
+        event.preventDefault();
 
-         const inputs = form.find('#option');
-         for (let input of inputs) {
-           input = $(input); // turn into JQuery Objects
-           const li = $(`<li class="m-2">${input.val()}<button class="m-2" id="delete">Delete</button></li>`);
-           list.append(li);
-           input.val('');
-         };
-       });
+        const input = $('#option');
+        const item = input.val();
+        input.val('');
+        // add this item to the opts array
+        opts.push(item);
 
-       $('div').on('click', '#delete', function(event) {
-           $(this).closest('li').remove();
-       });
+        // add a non empty option
+        if (item) {
+          $('#placeholder').remove();
+          $('ul').append($(`
+            <li class=list-group-item pb-2>
+             <span>${item}</span>
+             <button>Delete</button>
+            </li>
+          `));
+        }
+      });
+
+      // delete an option
+      $('ul').on('click', 'button', function(event) {
+        $(this).closest('li').remove();
+        // remove this option from the opts array
+        opts.pop($(this));
+      });
+
+      // Start the Vote
+      $("#vote").click(function() {
+        event.preventDefault();
+
+        // save the question
+        const q = $('#question');
+        const question = q.val();
+
+        // delete the form and ul and display poll question
+        $('form').remove();
+        $('ul').remove();
+        $('div').append($(`
+          <h2 class="text-center">${question}</h2>
+          <ul class="p-3"></ul>
+          `))
+
+        // display the options and a vote button
+        for (let i = 0; i < opts.length; i++){
+          $('ul').append($(`
+            <li class=list-group-item pb-2>
+             <span>${opts[i]}</span>
+             <button class="btn-danger ml-3">Vote</button>
+            </li>
+          `));
+        }
+
+        // display a tally ******
+        
+
+      });
 
     </script>
   </body>
