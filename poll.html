@@ -20,11 +20,9 @@
         <input type="text" id="option" name="text" class="form-control m-2">
         <button class="btn btn-primary ml-2 mt-2" id=addoption>Add Option</button>
       </div>
-      <div class="form-group col-md-2">
-        <!-- space divider to get the start vote button over to the right side of the screen-->
-      </div>
-      <div class="form-group col" id="votingArea">
-        <button type="submit" class="btn btn-success p-5 mt-4" id="vote">Start Vote!</button>
+      <!-- space divider to get the start vote button over to the right side of the screen-->
+      <div class="form-group col m-5" id="votingArea">
+        <button type="submit" class="btn btn-success p-5 mt-3" id="vote">Start Vote!</button>
       </div>
     </form>
     <ul class="list-group p-3"></ul>
@@ -39,17 +37,21 @@
       $("#addoption").click(function() {
         event.preventDefault();
 
-        const input = $('#option');
-        const item = input.val();
-        input.val('');
+        const aInput = $('#option');
+        const item = aInput.val();
+        aInput.val('');
+
         // add this item to the opts array
-        opts.push(item);
+        opts.push({
+          option: item,
+          count: 0
+        });
 
         // add a non empty option
         if (item) {
-          $('#placeholder').remove();
+          //$('#placeholder').remove();
           $('ul').append($(`
-            <li class=list-group-item pb-2>
+            <li class="list-group-item pb-2">
              <span>${item}</span>
              <button>Delete</button>
             </li>
@@ -71,6 +73,7 @@
         // save the question
         const q = $('#question');
         const question = q.val();
+        q.val('');
 
         // delete the form and ul and display poll question
         // $('form').remove();
@@ -81,25 +84,52 @@
         //   `))
 
         $('#vote').remove();
+        $('ul').remove();
         // display the options and a vote button
         for (let i = 0; i < opts.length; i++){
-
-          //$('ul').append($(`
           $('#votingArea').append($(`
-            <li class=list-group-item pb-2>
-             <span>${opts[i]}</span>
-             <button class="btn-danger ml-3">Vote</button>
+            <li class="list-group-item pb-2">
+             <span>${opts[i].option}</span>
+             <button class="btn-danger ml-3" id="countTimes">Vote</button>
+             <span class="ml-3">${opts[i].count}</span>
             </li>
           `));
-
         }
+
+
+
         $('#votingArea').append($(`
-          <button class="btn-primary ml-3">See Results</button>
+          <button class="btn-primary mt-3" id="results">See Results</button>
         `));
+
+        // vote the options
+        $('li').on('click', '#countTimes', function(event) {
+
+
+        });
+
 
 
         // display a tally ******
+        $("#results").click(function() {
+          event.preventDefault();
+          $('form').remove();
+          $('ul').remove();
 
+          $('div').append($(`
+            <h2 class="text-center">Question: ${question}</h2>
+          `));
+
+          for (let i = 0; i < opts.length; i++){
+            $('div').append($(`
+              <ul class="list-group list-group-horizontal">
+                <li class="list-group-item pb-2">${opts[i].option}</li>
+                <li class="list-group-item pb-2">${opts[i].count}</li>
+              </ul>
+            `));
+          }
+
+        });
 
       });
 
