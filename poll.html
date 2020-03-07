@@ -23,7 +23,7 @@
       <div class="form-group col-md-2">
         <!-- space divider to get the start vote button over to the right side of the screen-->
       </div>
-      <div class="form-group col">
+      <div class="form-group col" id="votingArea">
         <button type="submit" class="btn btn-success p-5 mt-4" id="vote">Start Vote!</button>
       </div>
     </form>
@@ -73,25 +73,33 @@
         const question = q.val();
 
         // delete the form and ul and display poll question
-        $('form').remove();
-        $('ul').remove();
-        $('div').append($(`
-          <h2 class="text-center">${question}</h2>
-          <ul class="p-3"></ul>
-          `))
+        // $('form').remove();
+        // $('ul').remove();
+        // $('div').append($(`
+        //   <h2 class="text-center">${question}</h2>
+        //   <ul class="p-3"></ul>
+        //   `))
 
+        $('#vote').remove();
         // display the options and a vote button
         for (let i = 0; i < opts.length; i++){
-          $('ul').append($(`
+
+          //$('ul').append($(`
+          $('#votingArea').append($(`
             <li class=list-group-item pb-2>
              <span>${opts[i]}</span>
              <button class="btn-danger ml-3">Vote</button>
             </li>
           `));
+
         }
+        $('#votingArea').append($(`
+          <button class="btn-primary ml-3">See Results</button>
+        `));
+
 
         // display a tally ******
-        
+
 
       });
 
