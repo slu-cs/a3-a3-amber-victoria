@@ -43,6 +43,8 @@
         const item = input.val();
         input.val('');
         // add this item to the opts array
+        // the curly brackets were making this an object and it was complicated
+        // so i just made it an array of arrays. [0] is the item. [1] is the count
         opts.push([
          item,
          0
@@ -90,7 +92,7 @@
         for (let i = 0; i < opts.length; i++){
           $('ul').append($(`
             <li class=list-group-item pb-2>
-             <span>${opts[i]}</span>
+             <span>${opts[i][0]}</span>
              <button class="btn-danger ml-3" id="count">Vote</button
             </li>
           `));
