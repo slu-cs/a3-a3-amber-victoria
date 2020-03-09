@@ -45,10 +45,7 @@
         // add this item to the opts array
         // the curly brackets were making this an object and it was complicated
         // so i just made it an array of arrays. [0] is the item. [1] is the count
-        opts.push([
-         item,
-         0
-       ]);
+        opts.push(item);
 
         // add a non empty option
         if (item) {
@@ -66,10 +63,14 @@
       $('ul').on('click', 'button', function(event) {
         $(this).closest('li').remove();
         // remove this option from the opts array
+
         for (let i = 0; i < opts.length; i++){
-          opts.pop().where(opts[i][0]).equals($(this));
-          break; // need the break so it doesn't delete more than once
+          if(opts[i] === ($(this))) {
+            opts.splice(i, 1);
+            break; // need the break so it doesn't delete more than once
+          }
         }
+
       });
 
       // Start the Vote
@@ -92,8 +93,10 @@
         for (let i = 0; i < opts.length; i++){
           $('ul').append($(`
             <li class=list-group-item pb-2>
-             <span>${opts[i][0]}</span>
+             <span>${opts[i]}</span>
              <button class="btn-danger ml-3" id="count">Vote</button
+             var num = $('span')
+             <span id="numVotes">${num}</span>
             </li>
           `));
         }
@@ -105,7 +108,9 @@
 
         // vote the options
         $('li').on('click', '#count', function(event) {
-          opts[i][1] += 1;
+          $(this).closest('#numVotes').textContent += 1;
+
+          //opts[i].count += 1;
         });
 
         // display a tally ******
@@ -115,8 +120,8 @@
          for (let i = 0; i < opts.length; i++){
            $('div').append($(`
              <ul class="list-group list-group-horizontal justify-content-center">
-               <li class="list-group-item pb-2" style="width: 200px;">${opts[i][0]}</li>
-               <li class="list-group-item pb-2"style="width: 200px;">${opts[i][1]}</li>
+               <li class="list-group-item pb-2" style="width: 200px;">${opts[i].option}</li>
+               <li class="list-group-item pb-2"style="width: 200px;">${opts[i].count}</li>
              </ul>
            `));
          }
