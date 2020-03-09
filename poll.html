@@ -86,68 +86,47 @@
         $('ul').remove();
         $('div').append($(`
           <h2 class="text-center">Question: ${question}</h2>
-          <ul class="p-3"></ul>
+          <div class="d-flex flex-column align-items-center mt-3" id="votingArea"></div>
           `))
 
         // display the options and a vote button
         for (let i = 0; i < opts.length; i++){
-          $('#votingArea').append($(`
-            <ul class="list-group list-group-horizontal">
-              <ul class="row">
-                <li class="list-group-item" style="width: 200px;">
-                  ${opts[i]}
-                </li>
-                <li class="list-group-item" style="width: 200px;">
-                  <button class="btn-danger ml-5" id="count">Vote</button>
-                </li>
-                <li class="list-group-item" style="width: 200px;">
-                  0
-                </li>
-              </ul>
-            </ul>
-          `));
-        }
+         $('#votingArea').append($(`
+           <ul class="list-group list-group-horizontal">
+             <ul class="row">
+               <li class="list-group-item" style="width: 200px;">
+                 ${opts[i]}
+               </li>
+               <li class="list-group-item" style="width: 200px;">
+                 <button class="btn-danger ml-5" id="count">Vote</button>
+               </li>
+               <li class="list-group-item" style="width: 200px;">
+                 0
+               </li>
+             </ul>
+           </ul>
+         `));
+
+       }
+
 
         // vote the options
-         $('li').on('click', '#count', function() {
+         $('#votingArea').on('click', '#count', function() {
            //event.preventDefault();
-           var getCount = $(this).closest('li').children().text();
-           var getSpan = $(this).closest('li').children();
-           var span = getSpan[2];
-           var count = getCount.split("Vote")[1];
-           var currentCount = parseInt(count) + 1;
-           span.textContent = currentCount.toString();
-           console.log(count);
+           // var getCount = $(this).closest('li').children().text();
+           // var getSpan = $(this).closest('li').children();
+           // var span = getSpan[2];
+           // var count = getCount.split("Vote")[1];
+           // var currentCount = parseInt(count) + 1;
+           // span.text() = currentCount.toString();
+           // console.log(count);
+
+
          });
 
        });
 
-       //  //display a results button
-       //  $('div').append($(`
-       //    <button class="btn-primary mt-3" id="results">See Results</button>
-       //  `));
-       //
-       //  // vote the options
-       //  $('li').on('click', '#count', function(event) {
-       //    $(this).closest('#numVotes').textContent += 1;
-       //
-       //    //opts[i].count += 1;
-       //  });
-       //
-       //  // display a tally ******
-       //  $("#results").click(function() {
-       //   event.preventDefault();
-       //
-       //   for (let i = 0; i < opts.length; i++){
-       //     $('div').append($(`
-       //       <ul class="list-group list-group-horizontal justify-content-center">
-       //         <li class="list-group-item pb-2" style="width: 200px;">${opts[i].option}</li>
-       //         <li class="list-group-item pb-2"style="width: 200px;">${opts[i].count}</li>
-       //       </ul>
-       //     `));
-       //   }
-       //
-       // });
+
 
     </script>
   </body>
