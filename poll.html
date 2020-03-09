@@ -91,11 +91,11 @@
 
         // display the options and a vote button
         for (let i = 0; i < opts.length; i++){
+          var num = $('span');
           $('ul').append($(`
             <li class=list-group-item pb-2>
              <span>${opts[i]}</span>
              <button class="btn-danger ml-3" id="count">Vote</button
-             var num = $('span')
              <span id="numVotes">${num}</span>
             </li>
           `));
