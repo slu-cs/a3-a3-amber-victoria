@@ -42,9 +42,6 @@
         const input = $('#option');
         const item = input.val();
         input.val('');
-        // add this item to the opts array
-        // the curly brackets were making this an object and it was complicated
-        // so i just made it an array of arrays. [0] is the item. [1] is the count
         opts.push(item);
 
         // add a non empty option
@@ -72,7 +69,6 @@
             break; // need the break so it doesn't delete more than once
           }
         }
-        console.log(opts);
       });
 
       // Start the Vote
@@ -97,7 +93,7 @@
             <li class=list-group-item pb-2>
              <span>${opts[i]}</span>
              <button class="btn-danger ml-3" id="count">Vote</button>
-             <span id="numVotes">0</span>
+             <span>0</span>
             </li>
           `));
         }
@@ -105,10 +101,13 @@
         // vote the options
          $('li').on('click', '#count', function() {
            //event.preventDefault();
-           var getCount = $(this).closest('li').childNodes[2];
-           getCount.textContent = 'AAAA';
-
-           //opts[i].count += 1;
+           var getCount = $(this).closest('li').children().text();
+           var getSpan = $(this).closest('li').children();
+           var span = getSpan[2];
+           var count = getCount.split("Vote")[1];
+           var currentCount = parseInt(count) + 1;
+           span.textContent = currentCount.toString();
+           console.log(count);
          });
 
        });
