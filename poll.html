@@ -96,13 +96,13 @@
           $('#votingArea').append($(`
             <ul class="list-group list-group-horizontal">
               <ul class="row">
-                <li class="list-group-item">
+                <li class="list-group-item" style="width: 200px;">
                   ${opts[i]}
                 </li>
-                <li class="list-group-item">
-                  <button class="btn-danger" id="count">Vote</button>
+                <li class="list-group-item" style="width: 200px;">
+                  <button class="btn-danger ml-5" id="count">Vote</button>
                 </li>
-                <li class="list-group-item">
+                <li class="list-group-item" style="width: 200px;">
                   0
                 </li>
               </ul>
@@ -115,9 +115,12 @@
            //event.preventDefault();
 
            // get the value
-           var getCount = $(this).closest('li').childNodes[2];
+           var getCount = $(this).parent().next();
            // add the value by 1
-           getCount.textContent = parseInt(getCount.textContent) + 1;
+           //getCount = parseInt(getCount) + 1;
+           getCount.text(function(){
+             return parseparseInt(getCount.text) + 1;
+           });
 
          });
 
