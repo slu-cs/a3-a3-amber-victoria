@@ -112,16 +112,14 @@
 
         // vote the options
          $('#votingArea').on('click', '#count', function() {
-           //event.preventDefault();
-           // var getCount = $(this).closest('li').children().text();
-           // var getSpan = $(this).closest('li').children();
-           // var span = getSpan[2];
-           // var count = getCount.split("Vote")[1];
-           // var currentCount = parseInt(count) + 1;
-           // span.text() = currentCount.toString();
-           // console.log(count);
-
-
+           event.preventDefault();
+           var getCount = $(this).closest('ul').children().text();
+           getCount = getCount.replace(/\s/g,'');
+           var count = getCount.split("Vote")[1];
+           var listItems = $(this).closest('ul').children();
+           var setCount = listItems[2];
+           var currentCount = parseInt(count) + 1;
+           setCount.textContent = currentCount.toString();
          });
 
        });
