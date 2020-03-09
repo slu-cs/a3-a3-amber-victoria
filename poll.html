@@ -61,16 +61,18 @@
 
       // delete an option
       $('ul').on('click', 'button', function(event) {
+        var item = $(this).closest('li').text();
         $(this).closest('li').remove();
-        // remove this option from the opts array
 
+        // remove this option from the opts array
         for (let i = 0; i < opts.length; i++){
-          if(opts[i] === ($(this))) {
-            opts.splice(i, 1);
+          var optionstr = opts[i] + "Delete";
+          if(optionstr === item.replace(/\s/g,'')) {
+            opts.splice(i,1);
             break; // need the break so it doesn't delete more than once
           }
         }
-
+        console.log(opts);
       });
 
       // Start the Vote
