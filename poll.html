@@ -88,57 +88,40 @@
         $('ul').remove();
         $('div').append($(`
           <h2 class="text-center">Question: ${question}</h2>
-          <ul class="p-3"></ul>
+          <div class="d-flex flex-column align-items-center mt-3" id="votingArea"></div>
           `))
 
         // display the options and a vote button
         for (let i = 0; i < opts.length; i++){
-          $('ul').append($(`
-            <li class=list-group-item pb-2>
-             <span>${opts[i]}</span>
-             <button class="btn-danger ml-3" id="count">Vote</button>
-             <span id="numVotes">0</span>
-            </li>
+          $('#votingArea').append($(`
+            <ul class="list-group list-group-horizontal">
+              <ul class="row">
+                <li class="list-group-item">
+                  ${opts[i]}
+                </li>
+                <li class="list-group-item">
+                  <button class="btn-danger" id="count">Vote</button>
+                </li>
+                <li class="list-group-item">
+                  0
+                </li>
+              </ul>
+            </ul>
           `));
         }
 
         // vote the options
-         $('li').on('click', '#count', function() {
+         $('#votingArea').on('click', '#count', function() {
            //event.preventDefault();
-           var getCount = $(this).closest('li').childNodes[2];
-           getCount.textContent = 'AAAA';
 
-           //opts[i].count += 1;
+           // get the value
+           var getCount = $(this).closest('li').childNodes[2];
+           // add the value by 1
+           getCount.textContent = parseInt(getCount.textContent) + 1;
+
          });
 
        });
-
-       //  //display a results button
-       //  $('div').append($(`
-       //    <button class="btn-primary mt-3" id="results">See Results</button>
-       //  `));
-       //
-       //  // vote the options
-       //  $('li').on('click', '#count', function(event) {
-       //    $(this).closest('#numVotes').textContent += 1;
-       //
-       //    //opts[i].count += 1;
-       //  });
-       //
-       //  // display a tally ******
-       //  $("#results").click(function() {
-       //   event.preventDefault();
-       //
-       //   for (let i = 0; i < opts.length; i++){
-       //     $('div').append($(`
-       //       <ul class="list-group list-group-horizontal justify-content-center">
-       //         <li class="list-group-item pb-2" style="width: 200px;">${opts[i].option}</li>
-       //         <li class="list-group-item pb-2"style="width: 200px;">${opts[i].count}</li>
-       //       </ul>
-       //     `));
-       //   }
-       //
-       // });
 
     </script>
   </body>
