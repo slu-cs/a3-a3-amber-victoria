@@ -61,18 +61,16 @@
 
       // delete an option
       $('ul').on('click', 'button', function(event) {
-        var item = $(this).closest('li').text();
         $(this).closest('li').remove();
-
         // remove this option from the opts array
+
         for (let i = 0; i < opts.length; i++){
-          var optionstr = opts[i] + "Delete";
-          if(optionstr === item.replace(/\s/g,'')) {
-            opts.splice(i,1);
+          if(opts[i] === ($(this))) {
+            opts.splice(i, 1);
             break; // need the break so it doesn't delete more than once
           }
         }
-        console.log(opts);
+
       });
 
       // Start the Vote
@@ -88,7 +86,7 @@
         $('ul').remove();
         $('div').append($(`
           <h2 class="text-center">Question: ${question}</h2>
-          <div class="d-flex flex-column align-items-center mt-3" id="votingArea"></div>
+          <ul class="p-3"></ul>
           `))
 
         // display the options and a vote button
@@ -111,20 +109,45 @@
         }
 
         // vote the options
-         $('#votingArea').on('click', '#count', function() {
+         $('li').on('click', '#count', function() {
            //event.preventDefault();
-
-           // get the value
-           var getCount = $(this).parent().next();
-           // add the value by 1
-           //getCount = parseInt(getCount) + 1;
-           getCount.text(function(){
-             return parseparseInt(getCount.text) + 1;
-           });
-
+           var getCount = $(this).closest('li').children().text();
+           var getSpan = $(this).closest('li').children();
+           var span = getSpan[2];
+           var count = getCount.split("Vote")[1];
+           var currentCount = parseInt(count) + 1;
+           span.textContent = currentCount.toString();
+           console.log(count);
          });
 
        });
+
+       //  //display a results button
+       //  $('div').append($(`
+       //    <button class="btn-primary mt-3" id="results">See Results</button>
+       //  `));
+       //
+       //  // vote the options
+       //  $('li').on('click', '#count', function(event) {
+       //    $(this).closest('#numVotes').textContent += 1;
+       //
+       //    //opts[i].count += 1;
+       //  });
+       //
+       //  // display a tally ******
+       //  $("#results").click(function() {
+       //   event.preventDefault();
+       //
+       //   for (let i = 0; i < opts.length; i++){
+       //     $('div').append($(`
+       //       <ul class="list-group list-group-horizontal justify-content-center">
+       //         <li class="list-group-item pb-2" style="width: 200px;">${opts[i].option}</li>
+       //         <li class="list-group-item pb-2"style="width: 200px;">${opts[i].count}</li>
+       //       </ul>
+       //     `));
+       //   }
+       //
+       // });
 
     </script>
   </body>
